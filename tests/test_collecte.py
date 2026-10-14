@@ -7,5 +7,11 @@ class TestCollecte(unittest.TestCase):
         with self.assertRaises(ValueError):
             masquer_ip("192.168.1")
 
+    def test_masquer_parametres(self):
+        self.assertEqual(
+            masquer_parametres("/api?id=3&token=abc123"), 
+            "/api?id=3&token=[MASQUE]"
+        )
+
 if __name__ == "__main__":
     unittest.main()
