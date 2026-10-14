@@ -1,5 +1,5 @@
 # SecuGate-Lite
-Groupe : (nom du groupe)
+Groupe : (yahya mohamed youssef)
 Mini-plateforme de surveillance des accès d'une application : trois agents
 (Collecte, Détection, Alerte) qui échangent via un contrat commun
 (src/contrat.py).
@@ -11,9 +11,9 @@ secugate-lite/
 ├── src/
 │ ├── __init__.py (fichier vide)
 │ ├── contrat.py (contrat d’échange commun, fourni)
-│ ├── collecte.py (A : Agent 1)
-│ ├── detection.py (B : Agent 2)
-│ ├── alerte.py (C : Agent 3)
+│ ├── collecte.py (mohamed zaaboul: Agent 1 )
+│ ├── detection.py (youssef lamrani : Agent 2)
+│ ├── alerte.py (yahya serroukh : Agent 3)
 │ └── workflow.py (enchaîne les trois agents, fourni)
 └── tests/
 ├── __init__.py (fichier vide)
