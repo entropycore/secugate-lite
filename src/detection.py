@@ -11,3 +11,6 @@ def chercher_procedures(sig: Signal, base: dict) -> list:
 
 def evaluer(sig: Signal, nb_echecs: int = 0) -> str:
  raise NotImplemented
+
+def analyser(sig: Signal, base: dict, nb_echecs: int = 0) -> Verdict:
+ raise NotImplementedError
