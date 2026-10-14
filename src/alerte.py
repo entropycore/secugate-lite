@@ -1,46 +1,49 @@
 from src.contrat import Alerte, Signal, Verdict
-
-CANAUX = {
-    "CRITIQUE": "TELEPHONE",
-    "ELEVEE": "SLACK",
-    "MOYENNE": "EMAIL",
-    "FAIBLE": "TABLEAU",
-}
-
+import re
 
 def choisir_canal(niveau: str) -> str:
-    if niveau not in CANAUX:
+    if niveau == "CRITIQUE":
+        return "TELEPHONE"
+    elif niveau == "ELEVEE":
+        return "SLACK"
+    elif niveau == "MOYENNE":
+        return "EMAIL"
+    elif niveau == "FAIBLE":
+        return "TABLEAU"
+    else:
         raise ValueError(f"Niveau inconnu : {niveau}")
-    return CANAUX[niveau]
-
 
 def rediger(sig: Signal, verdict: Verdict) -> str:
     sources_str = ", ".join(verdict.sources)
+    
+    # 5 lignes exactes séparées par des sauts de ligne
     lignes = [
-        f"[{verdict.niveau}] Cible : {sig.cible}",
-        f"Signal : {sig.message}",
-        f"Explication : {verdict.explication}",
-        f"Action proposee : {verdict.action}",
-        f"Sources : {sources_str}",
+        f"[{verdict.niveau}] Cible: {sig.cible}",
+        f"Signal: {sig.message}",
+        f"Explication: {verdict.explication}",
+        f"Action proposee: {verdict.action}",
+        f"Sources: {sources_str}"
     ]
     return "\n".join(lignes)
-
 
 def alerter(sig: Signal, verdict: Verdict, journal: list) -> Alerte:
     canal = choisir_canal(verdict.niveau)
     texte = rediger(sig, verdict)
-    nouvelle_alerte = Alerte(
+    
+    alerte = Alerte(
         signal_id=sig.id,
         canal=canal,
         destinataire="equipe-secu",
-        texte=texte,
+        texte=texte
     )
-    journal.append(nouvelle_alerte)
+    
+    journal.append(alerte)
     sig.statut = "ALERTE"
-    return nouvelle_alerte
-
+    return alerte
 
 def valider_action(verdict: Verdict, reponse: str) -> bool:
     if not verdict.sensible:
         return True
-    return reponse.strip().lower() in ("o", "oui", "ok", "yes")
+        
+    rep = reponse.strip().lower()
+    return rep in ["o", "oui", "ok", "yes"]
