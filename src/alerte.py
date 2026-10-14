@@ -27,8 +27,20 @@ def rediger(sig: Signal, verdict: Verdict) -> str:
 
 
 def alerter(sig: Signal, verdict: Verdict, journal: list) -> Alerte:
-    raise NotImplementedError
+    canal = choisir_canal(verdict.niveau)
+    texte = rediger(sig, verdict)
+    nouvelle_alerte = Alerte(
+        signal_id=sig.id,
+        canal=canal,
+        destinataire="equipe-secu",
+        texte=texte,
+    )
+    journal.append(nouvelle_alerte)
+    sig.statut = "ALERTE"
+    return nouvelle_alerte
 
 
 def valider_action(verdict: Verdict, reponse: str) -> bool:
-    raise NotImplementedError
+    if not verdict.sensible:
+        return True
+    return reponse.strip().lower() in ("o", "oui", "ok", "yes")
