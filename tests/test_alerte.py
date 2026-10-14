@@ -46,6 +46,27 @@ class TestAlerte(unittest.TestCase):
         )
         self.assertEqual(rediger(s, v), attendu)
 
+    def test_alerter(self):
+        s, v = exemple()
+        journal = []
+        al = alerter(s, v, journal)
+        self.assertEqual(s.statut, "ALERTE")
+        self.assertEqual(len(journal), 1)
+        self.assertIs(journal[0], al)
+        self.assertEqual(al.signal_id, "SIG-00125")
+        self.assertEqual(al.canal, "TELEPHONE")
+        self.assertEqual(al.destinataire, "equipe-secu")
+
+    def test_validation(self):
+        _, v_sensible = exemple(sensible=True)
+        self.assertTrue(valider_action(v_sensible, " OUI "))
+        self.assertTrue(valider_action(v_sensible, "ok"))
+        self.assertTrue(valider_action(v_sensible, "Yes"))
+        self.assertFalse(valider_action(v_sensible, "n"))
+
+        _, v_non_sensible = exemple(sensible=False)
+        self.assertTrue(valider_action(v_non_sensible, "n"))
+
 
 if __name__ == "__main__":
     unittest.main()
