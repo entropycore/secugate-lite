@@ -13,5 +13,15 @@ class TestCollecte(unittest.TestCase):
             "/api?id=3&token=[MASQUE]"
         )
 
+    
+    def test_normaliser_acces(self):
+        ligne = "2026-10-05 10:01:10 192.168.1.15 POST /login 401"
+        sig = normaliser_acces(ligne, 42)
+        self.assertEqual(sig.id, "SIG-00042")
+        self.assertEqual(sig.timestamp, "2026-10-05T10:01:10Z")
+        self.assertEqual(sig.type, "LOGIN_ECHEC")
+        self.assertEqual(sig.gravite, "MOYENNE")
+        self.assertEqual(sig.message, "POST /login -> 401 depuis 192.168.1.x")
+
 if __name__ == "__main__":
     unittest.main()
