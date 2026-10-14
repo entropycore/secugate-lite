@@ -1,0 +1,1 @@
+#(contrat d’échange commun, fourni)
