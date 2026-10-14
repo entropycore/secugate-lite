@@ -8,3 +8,6 @@ def compter_echecs(sig: Signal, compteur: dict) -> int:
 
 def chercher_procedures(sig: Signal, base: dict) -> list:
  raise NotImplementedError
+
+def evaluer(sig: Signal, nb_echecs: int = 0) -> str:
+ raise NotImplemented
