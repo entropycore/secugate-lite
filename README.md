@@ -7,4 +7,3 @@ Mini-plateforme de surveillance des accès d'une application : trois agents
 -mohamed zaaboul
 -yahya serroukh
 -youssef lamrani
--teste link de compte github
